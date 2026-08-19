@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "populate-secrets"
+version = "0.0.0"
+description = "Populate secrets and environment variables into GitLab CI/CD, AWS SSM Parameter Store, and Azure"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Joe Niland", email = "joe@deploymode.com" },
+]
+dependencies = [
+    "python-gitlab>=3.9,<5",
+    "python-dotenv>=0.21,<2",
+    "click>=8,<9",
+    "boto3>=1.26,<2",
+]
+
+[project.urls]
+Homepage = "https://github.com/deploymode/populate-secrets"
+Issues = "https://github.com/deploymode/populate-secrets/issues"
+
+[project.scripts]
+populate-secrets = "populate_secrets.__main__:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# Pinned so a ruff upgrade can't fail CI on newly-defaulted rules.
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
